@@ -1,15 +1,24 @@
-/*	File: main.c
+/*	
+ *	File: main.c
  *	Description: Handles log-in, main menu and GUI/TUI
  *	Programmer: Oji Leightton Vynn-Z Bucad
- *	Date Created: 03/18/2015
+ *	Date Created: 03/18/2015 
  */
- 
-#include<graphics.h>
-#include<conio.h>
-#include<dos.h>
-#include<stdlib.h>
-#define MAX_IN_LEN 9
-#define MAX_IN_LEN_P 16
+
+#include "HRM.H"
+
+main()
+{
+	char user[8], pass[16];
+	int count, input;
+	clrscr();
+	
+	LOGUI();
+
+	getch();
+	closegraph();
+	return 0;
+}
 
 LOGUI()
 {
@@ -92,6 +101,15 @@ LOGUI()
 	/*Aborting Half-way*/
 	if(in_e == 2)return 0;
 	
+	/*Empty Field*/
+	if(strlen(user) == NULL)
+	{
+		setcolor(RED);
+		outtextxy(300, 260, "INVALID!!");
+		getch();
+		LOGUI();
+	}
+	
 	/*Set to NULL to avoid errors*/
 	in_e = NULL;
 	in_s = NULL;
@@ -132,6 +150,19 @@ LOGUI()
 		}
 	}while(!in_e);
 	
+	/*Empty Field Pass*/
+	if(strlen(pass) == NULL)
+	{
+		for(c = 0; c < MAX_IN_LEN; c++)
+		{
+			user[c] = NULL;
+		}
+		setcolor(RED);
+		outtextxy(300, 260, "INVALID!!");
+		getch();
+		LOGUI();
+	}
+	
 	LOGIN(user, pass);
 }
 MENUGUI()
@@ -141,20 +172,20 @@ MENUGUI()
 
 LOGIN(char user[MAX_IN_LEN], int pass[MAX_IN_LEN_P])
 {
-	puts(user);
-	puts(pass);
-}
-
-main()
-{
-	char user[8], pass[16];
-	int count, input;
-	clrscr();
 	
-	LOGUI();
-
-	getch();
-	closegraph();
-	return 0;
+	FILE *fopen(), *fp;
+	int c;
+	fp = fopen("ACC.DAT","r");
+	c = getc(fp) ;
+	while (c!= strlen(user))
+	{
+		if(user == c)
+		{
+			putchar(c);
+			c = getc(fp);	
+		}
+	}
+	fclose(fp);
 }
+
 
