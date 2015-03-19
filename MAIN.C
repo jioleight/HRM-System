@@ -28,7 +28,7 @@ LOGUI()
 	
 	cleardevice();
 	
-	setbkcolor(BLUE);
+	setbkcolor(BLACK);
 	/*Main pane*/
 	setfillstyle(SOLID_FILL, LIGHTGREEN);
 	bar(140, 90, 510, 300);
@@ -162,7 +162,7 @@ LOGUI()
 		getch();
 		LOGUI();
 	}
-	
+	cleardevice();
 	LOGIN(user, pass);
 }
 MENUGUI()
@@ -170,20 +170,18 @@ MENUGUI()
 	
 }
 
-LOGIN(char user[MAX_IN_LEN], int pass[MAX_IN_LEN_P])
+void LOGIN(char user[MAX_IN_LEN], int pass[MAX_IN_LEN_P])
 {
+	FILE *fp, *fopen();
+	int i = 0;
+	char c;
 	
-	FILE *fopen(), *fp;
-	int c;
-	fp = fopen("ACC.DAT","r");
+	fp = fopen("ACC.DAT", "r");
 	c = getc(fp) ;
-	while (c!= strlen(user))
+	while (c != strlen(user))
 	{
-		if(user == c)
-		{
-			putchar(c);
-			c = getc(fp);	
-		}
+		putchar(c);
+		c = getc(fp);
 	}
 	fclose(fp);
 }
