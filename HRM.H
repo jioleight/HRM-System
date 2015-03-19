@@ -11,6 +11,6 @@
 
 LOGUI();
 MENUGUI();
-LOGIN(char user[MAX_IN_LEN], int pass[MAX_IN_LEN_P]);
+void LOGIN(char user[MAX_IN_LEN], int pass[MAX_IN_LEN_P]);
 
 #endif
