@@ -178,16 +178,38 @@ MENUGUI()
 void LOGIN(char user[MAX_IN_LEN], int pass[MAX_IN_LEN_P])
 {
 	FILE *fp, *fopen();
-	int i = 0;
-	char c;
+	int i = 0, pos;
+	char c, tmp_user[MAX_IN_LEN], tmp_pass[MAX_IN_LEN_P];
 	
 	fp = fopen("ACC.DAT", "r");
-	c = getc(fp) ;
-	while (c != strlen(user))
+	c = getc(fp);
+	
+	/*Cleaner*/
+	for(i; i < MAX_IN_LEN && MAX_IN_LEN_P; i++)
 	{
-		putchar(c);
-		c = getc(fp);
+		tmp_user[i] = NULL;
+		tmp_pass[i] = NULL;
 	}
+	i = 0;
+	while (c != EOF)
+	{	
+		if(c == '\t')
+		{	
+			c = getc(fp);
+			while(c != EOF)
+			{
+				tmp_pass[i] = c;	
+			}
+			i++;
+			break;
+		}
+		tmp_user[i] = c;
+		c = getc(fp);
+		i++;
+	}
+	
+	puts(tmp_user);
+	puts(tmp_pass);
 	fclose(fp);
 }
 
