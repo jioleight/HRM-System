@@ -24,6 +24,7 @@ LOGUI()
 {
 	char user[MAX_IN_LEN], pass[MAX_IN_LEN_P], hid[MAX_IN_LEN_P];
 	int gd = DETECT, gm, c, left = 200, top = 150, right = 450, bottom = 250, in_s = 0, in_e = 0;
+	initgraph(&gd, &gm, "s:\\turboc\\BGI");
 	
 	cleardevice();
 	
@@ -146,7 +147,7 @@ LOGUI()
 			default:
 				if (in_s < MAX_IN_LEN_P - 1 && c >= ' ' && c <= '~')
 				{
-					hid[in_s] = '*|';
+					hid[in_s] = '*';
 					pass[in_s] = c;
 					in_s++;
 					hid[in_s] = 0;
