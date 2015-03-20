@@ -10,7 +10,7 @@
 #define MAX_IN_LEN_P 16
 
 LOGUI();
-MENUGUI();
-void LOGIN(char user[MAX_IN_LEN], int pass[MAX_IN_LEN_P]);
+MENUGUI(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P]);
+void LOGIN(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P]);
 
 #endif
