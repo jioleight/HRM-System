@@ -16,6 +16,7 @@ main()
 	LOGUI();
 
 	getch();
+	closegraph();
 	return 0;
 }
 
@@ -23,7 +24,6 @@ LOGUI()
 {
 	char user[MAX_IN_LEN], pass[MAX_IN_LEN_P], hid[MAX_IN_LEN_P];
 	int gd = DETECT, gm, c, left = 200, top = 150, right = 450, bottom = 250, in_s = 0, in_e = 0;
-	initgraph(&gd, &gm, "c:\\turboc\\BGI");
 	
 	cleardevice();
 	
@@ -146,7 +146,7 @@ LOGUI()
 			default:
 				if (in_s < MAX_IN_LEN_P - 1 && c >= ' ' && c <= '~')
 				{
-					hid[in_s] = '*';
+					hid[in_s] = '*|';
 					pass[in_s] = c;
 					in_s++;
 					hid[in_s] = 0;
@@ -167,15 +167,14 @@ LOGUI()
 		getch();
 		LOGUI();
 	}
-	closegraph();
 	LOGIN(user, pass);
 }
-MENUGUI()
+MENUGUI(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
 {
-	
+	puts("SUCCESS");
 }
 
-void LOGIN(char user[MAX_IN_LEN], int pass[MAX_IN_LEN_P])
+void LOGIN(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
 {
 	FILE *fp, *fopen();
 	int i = 0, pos;
@@ -190,26 +189,27 @@ void LOGIN(char user[MAX_IN_LEN], int pass[MAX_IN_LEN_P])
 		tmp_user[i] = NULL;
 		tmp_pass[i] = NULL;
 	}
-	i = 0;
-	while (c != EOF)
-	{	
-		if(c == '\t')
-		{	
-			i = 0;
-			while(c != EOL)
-			{
-				tmp_pass[i] = c;
-				c = getc(fp);
-				i++;
-			}
+	while(c != EOF)
+	{
+		fscanf(fp, "%s	%s", tmp_user, tmp_pass);
+		
+		if(strcmp(user, tmp_user) == 0 && strcmp(pass, tmp_pass) == 0)
+		{
+			fclose(fp);
+			MENUGUI(tmp_user, tmp_pass);
+			break;
 		}
-		tmp_user[i] = c;
+		/*Remember to put space after the last acc to trap*/
+		else if(c == ' ')
+		{
+			fclose(fp);
+			setcolor(RED);
+			outtextxy(220, 260, "INVALID USER OR PASSWORD!!");
+			getch();
+			main();
+		}
 		c = getc(fp);
-		i++;
 	}
-	
-	puts(tmp_user);
-	puts(tmp_pass);
 	fclose(fp);
 }
 
