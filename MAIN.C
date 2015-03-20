@@ -195,13 +195,13 @@ void LOGIN(char user[MAX_IN_LEN], int pass[MAX_IN_LEN_P])
 	{	
 		if(c == '\t')
 		{	
-			c = getc(fp);
-			while(c != EOF)
+			i = 0;
+			while(c != EOL)
 			{
-				tmp_pass[i] = c;	
+				tmp_pass[i] = c;
+				c = getc(fp);
+				i++;
 			}
-			i++;
-			break;
 		}
 		tmp_user[i] = c;
 		c = getc(fp);
