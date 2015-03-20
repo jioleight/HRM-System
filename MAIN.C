@@ -16,15 +16,14 @@ main()
 	LOGUI();
 
 	getch();
-	closegraph();
 	return 0;
 }
 
 LOGUI()
 {
-	char user[MAX_IN_LEN], pass[MAX_IN_LEN_P];
+	char user[MAX_IN_LEN], pass[MAX_IN_LEN_P], hid[MAX_IN_LEN_P];
 	int gd = DETECT, gm, c, left = 200, top = 150, right = 450, bottom = 250, in_s = 0, in_e = 0;
-	initgraph(&gd, &gm, "s:\\turboc\\BGI");
+	initgraph(&gd, &gm, "c:\\turboc\\BGI");
 	
 	cleardevice();
 	
@@ -61,6 +60,7 @@ LOGUI()
 	{
 		user[c] = NULL;
 		pass[c] = NULL;
+		hid[c] = NULL;
 	}
 	
 	/*LOGIN FIELD*/
@@ -119,14 +119,17 @@ LOGUI()
 	do
 	{
 		setcolor(RED);
-		outtextxy(255, 230, pass);
-		c = getche();
+		
+		outtextxy(255, 230, hid);
+		
+		c = getch();
 		switch (c)
 		{
 			case 8: /* backspace */
 				if (in_s)
 				{
 					in_s--;
+					hid[in_s] = 0;
 					pass[in_s] = 0;
 					/*Password Field*/
 					setfillstyle(SOLID_FILL, WHITE);
@@ -143,9 +146,11 @@ LOGUI()
 			default:
 				if (in_s < MAX_IN_LEN_P - 1 && c >= ' ' && c <= '~')
 				{
-				pass[in_s] = c;
-				in_s++;
-				pass[in_s] = 0;
+					hid[in_s] = '*';
+					pass[in_s] = c;
+					in_s++;
+					hid[in_s] = 0;
+					pass[in_s] = 0;
 				}
 		}
 	}while(!in_e);
@@ -162,7 +167,7 @@ LOGUI()
 		getch();
 		LOGUI();
 	}
-	cleardevice();
+	closegraph();
 	LOGIN(user, pass);
 }
 MENUGUI()
