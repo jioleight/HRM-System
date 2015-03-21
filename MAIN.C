@@ -24,7 +24,7 @@ LOGUI()
 {
 	char user[MAX_IN_LEN], pass[MAX_IN_LEN_P], hid[MAX_IN_LEN_P];
 	int gd = DETECT, gm, c, in_s = 0, in_e = 0;;
-	initgraph(&gd, &gm, "c:\\turboc\\BGI");
+	initgraph(&gd, &gm, "s:\\turboc\\BGI");
 	
 	cleardevice();
 	
@@ -46,7 +46,7 @@ LOGUI()
 	bar(250, 225, 400, 240);
 	
 	setcolor(WHITE);
-	settextstyle(GOTHIC_FONT, HORIZ_DIR, 3);
+	settextstyle(DEFAULT_FONT,HORIZ_DIR,1);
 	rectangle(140, 90, 510, 300);
 	rectangle(left, top, right, bottom);
 	
@@ -173,15 +173,17 @@ LOGUI()
 }
 MENUGUI(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
 {
-	int i = 0;
+	int i = 0, y1 = 0, y2 = 0, usr = NULL, c;
 	cleardevice();
+	
+	usr = strcmp(user, "admin");
 	
 	/*Main pane*/
 	setfillstyle(SOLID_FILL, LIGHTGREEN);
 	bar(50, 50, 600, 450);
 	/*Title Bar*/
 	setfillstyle(SOLID_FILL, LIGHTGRAY);
-	bar(50, 50, 600, 75);
+	bar(50, 50, 600, 85);
 	/*Selection pane*/
 	setfillstyle(SOLID_FILL, LIGHTBLUE);
 	bar(80, 120, 210, 350);
@@ -190,52 +192,141 @@ MENUGUI(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
 	bar(250, 120, 560, 400);
 	/*Input Field*/
 	setfillstyle(SOLID_FILL, WHITE);
-	bar(90, 320, 200, 340);
+	bar(250, 120, 560, 140);
 
 	/*Borders*/
 	setcolor(WHITE);
-	settextstyle(GOTHIC_FONT, HORIZ_DIR, 3);
 	rectangle(50, 50, 600, 450);
 	setcolor(LIGHTGRAY);
 	rectangle(250, 120, 560, 400);
 	rectangle(80, 120, 210, 350);
 	
 	setcolor(DARKGRAY);
+	settextstyle(DEFAULT_FONT, HORIZ_DIR, 2);
 	outtextxy(60, 60, "HUMAN RESOURCES MANAGEMENT SYSTEM");
-	
-	if(strcmp(user, "admin") == 0)
+
+	do
 	{
-		/*Admin Selection*/
 		setcolor(WHITE);
-		outtextxy(90, 130, "SELECTION");
-		outtextxy(90, 150, "[1] VIEW USERS");
-		outtextxy(90, 170, "[2] ADD");
-		outtextxy(90, 190, "[3] EDIT");
-		outtextxy(90, 210, "[4] DELETE");
-		outtextxy(90, 230, "[5] SEARCH");
-		outtextxy(90, 250, "[6] SORT");
-		outtextxy(90, 270, "[x] EXIT");
-		outtextxy(90, 310, "INPUT");
+		settextstyle(DEFAULT_FONT, HORIZ_DIR, 1);
+		if(usr == 0)
+		{
+			outtextxy(90, 130, "SELECTION");
+			outtextxy(90, 150, "[1] VIEW USERS");
+			outtextxy(90, 170, "[2] ADD");
+			outtextxy(90, 190, "[3] EDIT");
+			outtextxy(90, 210, "[4] DELETE");
+			outtextxy(90, 230, "[5] SEARCH");
+			outtextxy(90, 250, "[6] SORT");
+			outtextxy(90, 270, "[x] EXIT");
+			
+			if(c == 80 && usr == 0 && i != 7)
+			{	
+				/*Selector Cursor*/
+				setcolor(LIGHTBLUE);
+				rectangle(85, 145+y1-20, 205, 160+y2-20);
+				setcolor(RED);
+				rectangle(85, 145+y1, 205, 160+y2);
+			
+				y1 = y1 + 20;
+				y2 = y2 + 20;
+				i++;
+			}
 		
-		/*Selector Cursor*/
-		setfillstyle(SOLID_FILL, LIGHTGRAY);
-		bar(90, 145, 200, 160);
+			if(c == 72 && usr == 0 && i != 0)
+			{
+				y1 = y1 - 20;
+				y2 = y2 - 20;
+				/*Selector Cursor*/
+				setcolor(LIGHTBLUE);
+				rectangle(85, 145+y1+20, 205, 160+y2+20);
+				setcolor(RED);
+				rectangle(85, 145+y1, 205, 160+y2);
+				i--;
+			}
+		}
+		else if(usr != 0)
+		{
+			outtextxy(90, 130, "SELECTION");
+			outtextxy(90, 150, "[1] PROFILE");
+			outtextxy(90, 170, "[2] EDIT");
+			outtextxy(90, 190, "[x] EXIT");
+			
+			if(c == 80 && i != 3)
+			{	
+				/*Selector Cursor*/
+				setcolor(LIGHTBLUE);
+				rectangle(85, 145+y1-20, 205, 160+y2-20);
+				setcolor(RED);
+				rectangle(85, 145+y1, 205, 160+y2);
+					
+				y1 = y1 + 20;
+				y2 = y2 + 20;
+				i++;
+			}
+		
+			if(c == 72 && i != 0)
+			{
+				y1 = y1 - 20;
+				y2 = y2 - 20;
+				/*Selector Cursor*/
+				setcolor(LIGHTBLUE);
+				rectangle(85, 145+y1+20, 205, 160+y2+20);
+				setcolor(RED);
+				rectangle(85, 145+y1, 205, 160+y2);
+				i--;
+			}
+		}
+		c = getch();
+	}while(c != 13);
 	
-	}
-	else
+	while(i != 8)
 	{
-		/*User Selection*/
-		setcolor(WHITE);
-		outtextxy(90, 130, "SELECTION");
-		outtextxy(90, 150, "[1] PROFILE");
-		outtextxy(90, 170, "[2] EDIT");
-		outtextxy(90, 190, "[x] EXIT");
-		outtextxy(90, 310, "INPUT");
-		
-		/*Selector Cursor*/
-		setfillstyle(SOLID_FILL, LIGHTGRAY);
-		bar(90, 145, 200, 160);
-	
+		switch(i)
+		{
+			case 1:
+				if(usr == 0)
+				{
+					
+				}
+				else
+				{
+					
+				}
+				break;
+			case 2:
+				if(usr == 0)
+				{
+					
+				}
+				else
+				{
+					return 0;
+				}
+				break;
+			case 3:
+				if(usr == 0)
+				{
+					
+				}
+				else
+				{
+					outtextxy(10,10, "[x] EXIT");
+					return 0;
+				}
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				outtextxy(10,10, "[x] EXIT");
+				return 0;
+			default:
+				break;
+		}
 	}
 }
 
