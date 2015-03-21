@@ -23,12 +23,12 @@ main()
 LOGUI()
 {
 	char user[MAX_IN_LEN], pass[MAX_IN_LEN_P], hid[MAX_IN_LEN_P];
-	int gd = DETECT, gm, c, left = 200, top = 150, right = 450, bottom = 250, in_s = 0, in_e = 0;
-	initgraph(&gd, &gm, "s:\\turboc\\BGI");
+	int gd = DETECT, gm, c, in_s = 0, in_e = 0;;
+	initgraph(&gd, &gm, "c:\\turboc\\BGI");
 	
 	cleardevice();
 	
-	setbkcolor(BLACK);
+	setbkcolor(GREEN);
 	/*Main pane*/
 	setfillstyle(SOLID_FILL, LIGHTGREEN);
 	bar(140, 90, 510, 300);
@@ -48,6 +48,7 @@ LOGUI()
 	setcolor(WHITE);
 	settextstyle(GOTHIC_FONT, HORIZ_DIR, 3);
 	rectangle(140, 90, 510, 300);
+	rectangle(left, top, right, bottom);
 	
 	setcolor(DARKGRAY);
 	outtextxy(150, 100, "WELCOME TO HUMAN RESOURCES MANAGEMENT SYSTEM");
@@ -172,7 +173,70 @@ LOGUI()
 }
 MENUGUI(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
 {
-	puts("SUCCESS");
+	int i = 0;
+	cleardevice();
+	
+	/*Main pane*/
+	setfillstyle(SOLID_FILL, LIGHTGREEN);
+	bar(50, 50, 600, 450);
+	/*Title Bar*/
+	setfillstyle(SOLID_FILL, LIGHTGRAY);
+	bar(50, 50, 600, 75);
+	/*Selection pane*/
+	setfillstyle(SOLID_FILL, LIGHTBLUE);
+	bar(80, 120, 210, 350);
+	/*Output pane*/
+	setfillstyle(SOLID_FILL, MAGENTA);
+	bar(250, 120, 560, 400);
+	/*Input Field*/
+	setfillstyle(SOLID_FILL, WHITE);
+	bar(90, 320, 200, 340);
+
+	/*Borders*/
+	setcolor(WHITE);
+	settextstyle(GOTHIC_FONT, HORIZ_DIR, 3);
+	rectangle(50, 50, 600, 450);
+	setcolor(LIGHTGRAY);
+	rectangle(250, 120, 560, 400);
+	rectangle(80, 120, 210, 350);
+	
+	setcolor(DARKGRAY);
+	outtextxy(60, 60, "HUMAN RESOURCES MANAGEMENT SYSTEM");
+	
+	if(strcmp(user, "admin") == 0)
+	{
+		/*Admin Selection*/
+		setcolor(WHITE);
+		outtextxy(90, 130, "SELECTION");
+		outtextxy(90, 150, "[1] VIEW USERS");
+		outtextxy(90, 170, "[2] ADD");
+		outtextxy(90, 190, "[3] EDIT");
+		outtextxy(90, 210, "[4] DELETE");
+		outtextxy(90, 230, "[5] SEARCH");
+		outtextxy(90, 250, "[6] SORT");
+		outtextxy(90, 270, "[x] EXIT");
+		outtextxy(90, 310, "INPUT");
+		
+		/*Selector Cursor*/
+		setfillstyle(SOLID_FILL, LIGHTGRAY);
+		bar(90, 145, 200, 160);
+	
+	}
+	else
+	{
+		/*User Selection*/
+		setcolor(WHITE);
+		outtextxy(90, 130, "SELECTION");
+		outtextxy(90, 150, "[1] PROFILE");
+		outtextxy(90, 170, "[2] EDIT");
+		outtextxy(90, 190, "[x] EXIT");
+		outtextxy(90, 310, "INPUT");
+		
+		/*Selector Cursor*/
+		setfillstyle(SOLID_FILL, LIGHTGRAY);
+		bar(90, 145, 200, 160);
+	
+	}
 }
 
 void LOGIN(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
