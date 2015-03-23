@@ -1,6 +1,8 @@
 HRM.H
 main
 add
+create
+insert
 edit
 del
 srch
