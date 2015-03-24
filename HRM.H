@@ -25,6 +25,7 @@ typedef struct info_db INFO;
 LOGUI();
 MENUGUI(char *user[MAX_IN_LEN]);
 void LOGIN(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P]);
+void LOGIN_USER(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P]);
 
 void add(INFO **new, INFO **start, char *user[MAX_IN_LEN]);
 void insert(INFO ***new, INFO *tmp);
