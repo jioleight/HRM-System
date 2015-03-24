@@ -173,11 +173,12 @@ LOGUI()
 }
 MENUGUI(char *user[MAX_IN_LEN])
 {
-	int i = 0, y1 = 0, y2 = 0, usr = NULL, c, s = 1;
-	char k = ' ';
-	FILE *f,*t; 
+	int i = 0, y1 = 0, y2 = 0, usr = NULL, c, s = 1, z = 0;
+	char k = ' ', q, tmp_pass[MAX_IN_LEN];
+	FILE *f,*t, *fp; 
 	INFO *new=NULL,*start=NULL,*tmp, data; 
 	INFO **pnew=&new,**pstart=&start;
+	
 	usr = strcmp(user, "admin");
 	cleardevice();
 	/*Main pane*/
@@ -192,7 +193,7 @@ MENUGUI(char *user[MAX_IN_LEN])
 	/*Output pane*/
 	setfillstyle(SOLID_FILL, MAGENTA);
 	bar(250, 120, 560, 400);
-	/*Input Field*/
+	/*INFO Field*/
 	setfillstyle(SOLID_FILL, WHITE);
 	bar(250, 120, 560, 140);
 
@@ -206,12 +207,14 @@ MENUGUI(char *user[MAX_IN_LEN])
 	setcolor(DARKGRAY);
 	settextstyle(DEFAULT_FONT, HORIZ_DIR, 2);
 	outtextxy(60, 60, "HUMAN RESOURCES MANAGEMENT SYSTEM");
+	setcolor(BLUE);
+	settextstyle(DEFAULT_FONT, HORIZ_DIR, 2);
+	outtextxy(90, 100, user);
 
 	do
 	{
 		setcolor(WHITE);
 		settextstyle(DEFAULT_FONT, HORIZ_DIR, 1);
-		outtextxy(33, 2, user);
 		if(usr == 0)
 		{
 			outtextxy(90, 130, "SELECTION");
@@ -223,33 +226,29 @@ MENUGUI(char *user[MAX_IN_LEN])
 			outtextxy(90, 250, "[6] SORT");
 			outtextxy(90, 270, "[x] EXIT");
 			
-			if(c == 80 && usr == 0 && i != 7)
+			if(c == 80 && usr == 0 && i < 7)
 			{	
+				++i;
 				/*Selector Cursor*/
-				setcolor(RED);
-				rectangle(85, 145+y1, 205, 160+y2);
 				setcolor(LIGHTBLUE);
 				rectangle(85, 145+y1-20, 205, 160+y2-20);
 				setcolor(RED);
 				rectangle(85, 145+y1, 205, 160+y2);
-			
 				y1 = y1 + 20;
 				y2 = y2 + 20;
-				i++;
+				
 			}
 		
-			if(c == 72 && usr == 0 && i != 0)
+			if(c == 72 && usr == 0 && i > 1)
 			{
 				y1 = y1 - 20;
 				y2 = y2 - 20;
 				/*Selector Cursor*/
-				setcolor(RED);
-				rectangle(85, 145+y1, 205, 160+y2);
 				setcolor(LIGHTBLUE);
-				rectangle(85, 145+y1+20, 205, 160+y2+20);
-				setcolor(RED);
 				rectangle(85, 145+y1, 205, 160+y2);
-				i--;
+				setcolor(RED);
+				rectangle(85, 145+y1-20, 205, 160+y2-20);
+				--i;
 			}
 			if(c == 27)
 			{
@@ -264,29 +263,30 @@ MENUGUI(char *user[MAX_IN_LEN])
 			outtextxy(90, 170, "[2] EDIT");
 			outtextxy(90, 190, "[x] EXIT");
 			
-			if(c == 80 && i != 3)
+			if(c == 80 && i < 3)
 			{	
+				++i;
 				/*Selector Cursor*/
 				setcolor(LIGHTBLUE);
 				rectangle(85, 145+y1-20, 205, 160+y2-20);
 				setcolor(RED);
 				rectangle(85, 145+y1, 205, 160+y2);
-					
 				y1 = y1 + 20;
 				y2 = y2 + 20;
-				i++;
+				
 			}
 		
-			if(c == 72 && i != 0)
+			if(c == 72 && i > 1)
 			{
+				
 				y1 = y1 - 20;
 				y2 = y2 - 20;
 				/*Selector Cursor*/
 				setcolor(LIGHTBLUE);
-				rectangle(85, 145+y1+20, 205, 160+y2+20);
-				setcolor(RED);
 				rectangle(85, 145+y1, 205, 160+y2);
-				i--;
+				setcolor(RED);
+				rectangle(85, 145+y1-20, 205, 160+y2-20);
+				--i;
 			}
 			if(c == 27)
 			{
@@ -326,7 +326,7 @@ MENUGUI(char *user[MAX_IN_LEN])
 				s=3;
 			}
 		}	
-		fclose(f);
+		fclose(f);		
 		
 		tmp = start;
 		/*******************************************************************************/
@@ -336,17 +336,19 @@ MENUGUI(char *user[MAX_IN_LEN])
 				if(usr == 0)
 				{
 					
+					i = 8;
 				}
 				else
 				{
 					
+					i = 8;
 				}
 				break;
 			case 2:
 				if(usr == 0)
 				{	
 					i = 8;
-					add(&new,&start, &user);
+					add(&new, &start, &user);
 					break;
 				}
 				else
@@ -358,27 +360,38 @@ MENUGUI(char *user[MAX_IN_LEN])
 				if(usr == 0)
 				{
 					
+					i = 8;
 				}
 				else
 				{
-					outtextxy(10,10, "[x] EXIT");
+					i = 8;
+					outtextxy(10, 10, "[x] EXIT");
+					closegraph();
 					return 0;
+					break;
 				}
 				break;
 			case 4:
+					i = 8;
 				break;
 			case 5:
+					i = 8;
 				break;
 			case 6:
+					i = 8;
 				break;
 			case 7:
-				outtextxy(10,10, "[x] EXIT");
+					i = 8;
+				outtextxy(10, 10, "[x] EXIT");
+				closegraph();
 				return 0;
 				break;
 			default:
+					i = 8;
 				break;
 		}
-		t=fopen("tmp.dat","a");
+		
+		t = fopen("tmp.dat","a");
 		tmp=start;
 		while(tmp!=NULL)
 		{
@@ -391,10 +404,11 @@ MENUGUI(char *user[MAX_IN_LEN])
 			fprintf(f,"%s\n\n",tmp->address);
 			tmp=tmp->n;
 		}	
-		fclose(t); 
+		fclose(t);
 		remove("INFO.DAT"); 
 		rename("tmp.dat","INFO.DAT");
 	}
+	MENUGUI(user);
 }
 
 void LOGIN(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
@@ -429,10 +443,58 @@ void LOGIN(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
 			setcolor(RED);
 			outtextxy(220, 260, "INVALID USER OR PASSWORD!!");
 			getch();
+			/*
+			LOGIN_USER(user, pass);
+			*/
 			main();
 		}
 		c = getc(fp);
 	}
 	fclose(fp);
 }
+/*
+void LOGIN_USER(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
+{
+	FILE *fp, *fopen();
+	int i = 0, pos;
+	char c, tmp_user[MAX_IN_LEN], tmp_pass[MAX_IN_LEN_P];
+	
+	fp = fopen("INFO.DAT", "r");
+	c = getc(fp);
+	
+	/*Cleaner
+	for(i; i < MAX_IN_LEN && MAX_IN_LEN_P; i++)
+	{
+		tmp_user[i] = NULL;
+		tmp_pass[i] = NULL;
+	}
+	while(c != EOF)
+	{
+		fscanf(fp, "%s\n\n%s", tmp_user, tmp_pass);
+		puts(c);
+		if(strcmp(user, tmp_user) == 0 && strcmp(pass, tmp_pass) == 0)
+		{
+			fclose(fp);
+			MENUGUI(&tmp_user);
+			break;
+		}
+		/*Remember to put space after the last acc to trap
+		else if(c == ' ')
+		{
+			fclose(fp);
+			
+			setcolor(RED);
+			outtextxy(220, 260, "INVALID USER OR PASSWORD!!");
+			
+			getch();
+			main();
+		}
+		puts(tmp_user);
+		puts(tmp_pass);
+		getch();
+		c = getc(fp);
+	}
+	fclose(fp);
+	
+}*/
 
