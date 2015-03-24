@@ -5,7 +5,10 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 	char k, u_name[MAX_IN], f_name[MAX_IN], l_name[MAX_IN], gender[MAX_IN], tel_no[MAX_IN];
 	char email[MAX_IN], address[MAX_IN], tmp_user[MAX_IN_LEN];
 	int s = 0, in_s = 0, in_e = 0, c;
+	
 	strcpy(tmp_user, *user);
+	setcolor(RED);
+	outtextxy(260, 128, "User's Info");
 	setcolor(WHITE);
 	outtextxy(260, 150, "Username: ");
 	outtextxy(260, 170, "First name: ");
@@ -14,8 +17,7 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 	outtextxy(260, 230, "Tel. No.: ");
 	outtextxy(260, 250, "Email: ");
 	outtextxy(260, 270, "Address: ");
-	outtextxy(1, 11, *user);
-	outtextxy(1, 22, tmp_user);
+	
 	while(!s)
 	{
 		*new=(INFO *)malloc(sizeof(INFO));
@@ -49,14 +51,14 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 					break;
 				case 13: /* return */
 					in_e = 1;
-					strcpy((*new)->user_name, u_name);
+					strcpy((*new)->user_name, &u_name);
 					break;
 				case 27: /* Escape = Abort */
 					u_name[0] = 0;
 					in_e = 2;
 					break;
 				default:
-					if (in_s < MAX_IN - 1 && c >= ' ' && c <= '~')
+					if (in_s < MAX_IN_LEN - 1 && c >= ' ' && c <= '~')
 					{
 						u_name[in_s] = c;
 						in_s++;
@@ -64,6 +66,7 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 					}
 			}
 		}while(!in_e);
+		
 		in_s = 0;
 		in_e = 0;
 		/*first name*/
@@ -84,7 +87,7 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 					break;
 				case 13: /* return */
 					in_e = 1;
-					strcpy((*new)->user_name, f_name);
+					strcpy((*new)->first_name, &f_name);
 					break;
 				case 27: /* Escape = Abort */
 					f_name[0] = 0;
@@ -99,6 +102,7 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 					}
 			}
 		}while(!in_e);
+		
 		in_s = 0;
 		in_e = 0;
 		/*last name*/
@@ -119,7 +123,7 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 					break;
 				case 13: /* return */
 					in_e = 1;
-					strcpy((*new)->user_name, l_name);
+					strcpy((*new)->last_name, &l_name);
 					break;
 				case 27: /* Escape = Abort */
 					l_name[0] = 0;
@@ -134,6 +138,7 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 					}
 			}
 		}while(!in_e);
+		
 		in_s = 0;
 		in_e = 0;
 		/*gender*/
@@ -154,7 +159,7 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 					break;
 				case 13: /* return */
 					in_e = 1;
-					strcpy((*new)->user_name, gender);
+					strcpy((*new)->gender, &gender);
 					break;
 				case 27: /* Escape = Abort */
 					gender[0] = 0;
@@ -169,6 +174,7 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 					}
 			}
 		}while(!in_e);
+		
 		in_s = 0;
 		in_e = 0;
 		/*tel no*/
@@ -189,7 +195,7 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 					break;
 				case 13: /* return */
 					in_e = 1;
-					strcpy((*new)->user_name, tel_no);
+					strcpy((*new)->tel_no, &tel_no);
 					break;
 				case 27: /* Escape = Abort */
 					tel_no[0] = 0;
@@ -204,6 +210,7 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 					}
 			}
 		}while(!in_e);
+		
 		in_s = 0;
 		in_e = 0;
 		/*email*/
@@ -224,7 +231,7 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 					break;
 				case 13: /* return */
 					in_e = 1;
-					strcpy((*new)->user_name, email);
+					strcpy((*new)->email, &email);
 					break;
 				case 27: /* Escape = Abort */
 					email[0] = 0;
@@ -239,6 +246,7 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 					}
 			}
 		}while(!in_e);
+		
 		in_s = 0;
 		in_e = 0;
 		/*address*/
@@ -259,7 +267,7 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 					break;
 				case 13: /* return */
 					in_e = 1;
-					strcpy((*new)->user_name, address);
+					strcpy((*new)->address, &address);
 					break;
 				case 27: /* Escape = Abort */
 					address[0] = 0;
@@ -275,28 +283,29 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 			}
 		}while(!in_e);
 		
-		
-		if(*start==NULL)
-		{			
-			create(&new,&start);
-		}
-		else 
-		{
-			insert(&new,*start);
-		}
-		setcolor(RED);
-		outtextxy(260, 128, "Do you want to add more?[y/n]");
-		do
-		{
-			k=getch(); 
-		}
-		while(k!='y' && k!='Y'&& k!='n' && k!='N' && k!=13);
+		/*INFO Field*/
+		setfillstyle(SOLID_FILL, WHITE);
+		bar(250, 120, 560, 140);
 
-		if(k=='n'||k=='N'||k==27)
+		if(in_e == 1)
 		{
-			s=1;
-		}	
+			if(*start==NULL)
+			{			
+				create(&new,&start);
+			}
+			else 
+			{
+				insert(&new,*start);
+			}
+			
+			setcolor(RED);
+			outtextxy(260, 128, "DONE ADDING USER! PRESS ANY KEY!");
+			s = 1;
+		}
 	}
+	getch();
+	/*
 	MENUGUI(tmp_user);
+	*/
 }
 
