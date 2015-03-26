@@ -29,6 +29,9 @@ void LOGIN(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P]);
 void add(INFO **new, INFO **start, char *user[MAX_IN_LEN]);
 void insert(INFO ***new, INFO *tmp);
 void create(INFO ***new, INFO ***start);
-void browse(INFO *start, INFO *tmp);
+void display(INFO *start, INFO *tmp);
+void checker(INFO *start, INFO *tmp);
+char *search(INFO **tmp, INFO **prev, char srch[MAX_IN_LEN]);
+
 
 #endif
