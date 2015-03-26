@@ -335,8 +335,8 @@ MENUGUI(char *user[MAX_IN_LEN])
 			case 1:
 				if(usr == 0)
 				{
-					
 					i = 8;
+					display(start, tmp);
 				}
 				else
 				{
@@ -349,6 +349,7 @@ MENUGUI(char *user[MAX_IN_LEN])
 				{	
 					i = 8;
 					add(&new, &start, &user);
+					z = 1;
 					break;
 				}
 				else
@@ -371,11 +372,13 @@ MENUGUI(char *user[MAX_IN_LEN])
 					break;
 				}
 				break;
-			case 4:
+			case 4:					
 					i = 8;
+					deleter(start, tmp);
 				break;
 			case 5:
 					i = 8;
+					checker(start, tmp);
 				break;
 			case 6:
 					i = 8;
@@ -390,23 +393,25 @@ MENUGUI(char *user[MAX_IN_LEN])
 					i = 8;
 				break;
 		}
-		
-		t = fopen("tmp.dat","a");
-		tmp=start;
-		while(tmp!=NULL)
+		if(z == 1)
 		{
-			fprintf(t,"%s\n",tmp->user_name);
-			fprintf(f,"%s\n",tmp->first_name);
-			fprintf(f,"%s\n",tmp->last_name);
-			fprintf(f,"%s\n",tmp->gender);
-			fprintf(f,"%s\n",tmp->tel_no);
-			fprintf(f,"%s\n",tmp->email);
-			fprintf(f,"%s\n\n",tmp->address);
-			tmp=tmp->n;
-		}	
-		fclose(t);
-		remove("INFO.DAT"); 
-		rename("tmp.dat","INFO.DAT");
+			t = fopen("tmp.dat","a");
+			tmp=start;
+			while(tmp!=NULL)
+			{
+				fprintf(t,"%s\n",tmp->user_name);
+				fprintf(f,"%s\n",tmp->first_name);
+				fprintf(f,"%s\n",tmp->last_name);
+				fprintf(f,"%s\n",tmp->gender);
+				fprintf(f,"%s\n",tmp->tel_no);
+				fprintf(f,"%s\n",tmp->email);
+				fprintf(f,"%s\n\n",tmp->address);
+				tmp=tmp->n;
+			}	
+			fclose(t);
+			remove("INFO.DAT"); 
+			rename("tmp.dat","INFO.DAT");
+		}
 	}
 	MENUGUI(user);
 }
