@@ -4,5 +4,7 @@ add
 create
 insert
 edit
+disp
+srch
 del
-srch
+
