@@ -1,48 +1,43 @@
 #include "HRM.H"
 
-void browse(INFO *start, INFO *tmp)
+void display(INFO *start, INFO *tmp)
 {
-	char k; 
-	int s=0;
+	int s=0, k=0, t=0;
+	setcolor(RED);
+	outtextxy(260, 128, "Viewing All Users!");
+	setcolor(WHITE);
 	while(!s)
 	{
-		clrscr(); tmp=start;
-		printf("***Browse Contacts***\n");
-		printf("\n[1] Search");
-		printf("\n[2] Show All");
-		printf("\n[3] Back to Main");
-		printf("\nChoice? ");
-		do k=getche(); while(k!='1'&&k!='2'&&k!='3');	
-		if(k=='1')
+		tmp=start;
+	
+	
+		if(tmp==NULL)
 		{
-			printf("\n\nEnter name/number of the contact you want to search: ");
-			search(&tmp,NULL,NULL);
-			if(tmp==NULL) 
-				printf("\nnot found...");
+			outtextxy(360, 250, "***EMPTY***");
+			s = 1;
 		}
-		if(k=='2')
+		else
 		{
-			if(tmp==NULL)
+			while(tmp!=NULL)
 			{
-				printf("\n\nno contacts found...");
-			}
-			else
-			{
-				printf("\n\n--------------------\n");
-				while(tmp!=NULL)
+				if(k < 230)
 				{
-					printf("%s %c. %s",tmp->fn,tmp->mn[0],tmp->ln);
-					printf("\n%s\n--------------------\n",tmp->num);
+					outtextxy(260, 150 + k, tmp->user_name);
 					tmp=tmp->n;
-				}	
-			}
+					k = k + 15;
+				}
+				else
+				{	
+					if(t < 230)
+					{
+						outtextxy(400, 150 + t, tmp->user_name);
+						tmp=tmp->n;
+						t = t + 15;
+					}
+				}
+			}	
+			s = 1;
 		}
-		if(k=='3') s=1;
-		if(!s)
-		{
-			printf("\nagain?(y/n) " );
-			do k=getch(); while(k!='y'&&k!='Y'&&k!='n'&&k!='N');
-			if(k=='n'||k=='N') s=1;
-		}
+		getch();
 	}
 }
