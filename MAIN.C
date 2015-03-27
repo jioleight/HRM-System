@@ -174,14 +174,15 @@ LOGUI()
 MENUGUI(char *user[MAX_IN_LEN])
 {
 	int i = 0, y1 = 0, y2 = 0, usr = NULL, c, s = 1, z = 0;
-	char k = ' ', q, tmp_pass[MAX_IN_LEN];
+	char k = ' ', q, *srch, tmp_pass[MAX_IN_LEN], tmp_user[MAX_IN_LEN];
 	FILE *f,*t, *fp; 
 	INFO *new=NULL,*start=NULL,*tmp, data; 
 	INFO **pnew=&new,**pstart=&start;
 	
 	usr = strcmp(user, "admin");
-	cleardevice();
-	/*Main pane*/
+	
+	/*cleardevice();
+	Main pane*/
 	setfillstyle(SOLID_FILL, LIGHTGREEN);
 	bar(50, 50, 600, 450);
 	/*Title Bar*/
@@ -339,29 +340,33 @@ MENUGUI(char *user[MAX_IN_LEN])
 					display(start, tmp);
 				}
 				else
-				{
-					
+				{	
 					i = 8;
+					user_info(&tmp, NULL, user);
 				}
 				break;
 			case 2:
 				if(usr == 0)
 				{	
 					i = 8;
-					add(&new, &start, &user);
+					add(&new, &start, tmp, &user);
 					z = 1;
 					break;
 				}
 				else
 				{
+					i = 8;
+					edit_user(start, tmp, &user);
 					return 0;
 				}
 				break;
 			case 3:
 				if(usr == 0)
 				{
-					
 					i = 8;
+					z = 1;
+					edit(start, tmp);
+					break;
 				}
 				else
 				{
@@ -374,24 +379,27 @@ MENUGUI(char *user[MAX_IN_LEN])
 				break;
 			case 4:					
 					i = 8;
+					z = 1;
 					deleter(start, tmp);
-				break;
+					break;
 			case 5:
 					i = 8;
 					checker(start, tmp);
-				break;
+					break;
 			case 6:
 					i = 8;
-				break;
+					setcolor(WHITE);
+					outtextxy(300, 350, "***NOT YET IMPLEMENTED***");
+					getch();
+					break;
 			case 7:
 					i = 8;
-				outtextxy(10, 10, "[x] EXIT");
-				closegraph();
-				return 0;
-				break;
+					closegraph();
+					return 0;
+					break;
 			default:
 					i = 8;
-				break;
+					break;
 		}
 		if(z == 1)
 		{
@@ -441,65 +449,16 @@ void LOGIN(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
 			MENUGUI(&tmp_user);
 			break;
 		}
-		/*Remember to put space after the last acc to trap*/
-		else if(c == ' ')
+		
+		if(c != ' \b')
 		{
 			fclose(fp);
 			setcolor(RED);
 			outtextxy(220, 260, "INVALID USER OR PASSWORD!!");
 			getch();
-			/*
-			LOGIN_USER(user, pass);
-			*/
 			main();
 		}
 		c = getc(fp);
 	}
 	fclose(fp);
-}
-/*
-void LOGIN_USER(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
-{
-	FILE *fp, *fopen();
-	int i = 0, pos;
-	char c, tmp_user[MAX_IN_LEN], tmp_pass[MAX_IN_LEN_P];
-	
-	fp = fopen("INFO.DAT", "r");
-	c = getc(fp);
-	
-	/*Cleaner
-	for(i; i < MAX_IN_LEN && MAX_IN_LEN_P; i++)
-	{
-		tmp_user[i] = NULL;
-		tmp_pass[i] = NULL;
-	}
-	while(c != EOF)
-	{
-		fscanf(fp, "%s\n\n%s", tmp_user, tmp_pass);
-		puts(c);
-		if(strcmp(user, tmp_user) == 0 && strcmp(pass, tmp_pass) == 0)
-		{
-			fclose(fp);
-			MENUGUI(&tmp_user);
-			break;
-		}
-		/*Remember to put space after the last acc to trap
-		else if(c == ' ')
-		{
-			fclose(fp);
-			
-			setcolor(RED);
-			outtextxy(220, 260, "INVALID USER OR PASSWORD!!");
-			
-			getch();
-			main();
-		}
-		puts(tmp_user);
-		puts(tmp_pass);
-		getch();
-		c = getc(fp);
-	}
-	fclose(fp);
-	
-}*/
-
+}
