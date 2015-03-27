@@ -317,7 +317,7 @@ void acc_user(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
 	t = fopen("ACC.DAT","a+");
 	outtextxy(300, 310, "looking for marker");
 
-	fprintf(t,"\b\n%s\t%s ", user, pass);
+	fprintf(t,"\n%s\t%s ", user, pass);
 	outtextxy(300, 320, "saving");
 
 	fclose(t);

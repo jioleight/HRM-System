@@ -23,9 +23,10 @@ void edit(INFO *start, INFO *tmp)
 		email[r] = NULL;
 		address[r] = NULL;
 	}
-	/*
-	do
-	{*/
+	r = 0;
+	/*do
+	{
+		*/
 		if(srch!=NULL) 
 		{
 			tmp=tmp->n;
@@ -295,6 +296,7 @@ void edit(INFO *start, INFO *tmp)
 					case 13: /* return */
 						in_e = 1;
 						strcpy(tmp->address, &address);
+						r = 1;
 						break;
 					case 27: /* Escape = Abort */
 						address[0] = 0;
@@ -309,10 +311,12 @@ void edit(INFO *start, INFO *tmp)
 						}
 				}
 			}while(!in_e);
+			
+		outtextxy(320, 350, "***EDIT SUCCESSFUL***");
+		sleep(2);
 		}
-	/*}while(tmp!=NULL);
+	/*
+	}while(r != 1);
 	*/
-	outtextxy(320, 350, "***EDIT SUCCESSFUL***");
-	sleep(2);
 }
 

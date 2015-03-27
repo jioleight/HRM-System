@@ -433,6 +433,7 @@ void LOGIN(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
 	fp = fopen("ACC.DAT", "r");
 	c = getc(fp);
 	
+	outtextxy(220, 270, "Checking");
 	/*Cleaner*/
 	for(i; i < MAX_IN_LEN && MAX_IN_LEN_P; i++)
 	{
@@ -450,7 +451,7 @@ void LOGIN(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
 			break;
 		}
 		
-		if(c != ' \b')
+		if(c == ' ')
 		{
 			fclose(fp);
 			setcolor(RED);

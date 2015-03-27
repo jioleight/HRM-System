@@ -65,6 +65,7 @@ char *search(INFO **tmp, INFO **prev, char *srch)
 			}
 		}while(!in_e);
 	}
+	/*
 	else if(srch!=NULL)
 	{
 		
@@ -104,7 +105,8 @@ char *search(INFO **tmp, INFO **prev, char *srch)
 			tprev=t;
 			t=t->n;
 		}
-	}
+		i = 1;
+	}*/
 	while(t!=NULL)
 	{	
 		m=0;
@@ -137,13 +139,14 @@ char *search(INFO **tmp, INFO **prev, char *srch)
 				*prev=tprev;
 			}
 		}
+		
 		tprev=t;
 		t=t->n;
 	}
 	
-	if(m>0 || n < 1)
+	if(m == 0 && n == 0)
 	{
-		outtextxy(300, 350, "***USER DOES NOT EXIST***");
+		outtextxy(300, 360, "***USER DOES NOT EXIST***");
 	}
 	
 	if(n==0)
