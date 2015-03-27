@@ -1,6 +1,6 @@
 #include "HRM.H"
 
-void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
+void add(INFO **new, INFO **start, INFO *tmp, char *user[MAX_IN_LEN])
 {
 	char k, u_name[MAX_IN], f_name[MAX_IN], l_name[MAX_IN], gender[MAX_IN], tel_no[MAX_IN];
 	char email[MAX_IN], address[MAX_IN], tmp_user[MAX_IN_LEN];
@@ -283,9 +283,7 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 			}
 		}while(!in_e);
 		
-		/*INFO Field*/
-		setfillstyle(SOLID_FILL, WHITE);
-		bar(250, 120, 560, 140);
+		
 
 		if(in_e == 1)
 		{
@@ -297,15 +295,33 @@ void add(INFO **new, INFO **start, char *user[MAX_IN_LEN])
 			{
 				insert(&new,*start);
 			}
-			
+			/*INFO Field*/
+			setfillstyle(SOLID_FILL, WHITE);
+			bar(250, 120, 560, 140);
 			setcolor(RED);
 			outtextxy(260, 128, "DONE ADDING USER! PRESS ANY KEY!");
+			acc_user(u_name, l_name);
 			s = 1;
+			sleep(1);
 		}
 	}
 	getch();
-	/*
-	MENUGUI(tmp_user);
-	*/
+}
+
+void acc_user(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P])
+{
+	FILE *t;
+	setcolor(WHITE);
+	outtextxy(300, 300, "Saving to acc.dat");
+	
+	t = fopen("ACC.DAT","a+");
+	outtextxy(300, 310, "looking for marker");
+
+	fprintf(t,"\b\n%s\t%s ", user, pass);
+	outtextxy(300, 320, "saving");
+
+	fclose(t);
+	outtextxy(300, 330, "done");
+	
 }
 
