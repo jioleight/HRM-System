@@ -26,12 +26,15 @@ LOGUI();
 MENUGUI(char *user[MAX_IN_LEN]);
 void LOGIN(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P]);
 
-void add(INFO **new, INFO **start, char *user[MAX_IN_LEN]);
+void add(INFO **new, INFO **start, INFO *tmp, char *user[MAX_IN_LEN]);
 void insert(INFO ***new, INFO *tmp);
 void create(INFO ***new, INFO ***start);
 void display(INFO *start, INFO *tmp);
 void checker(INFO *start, INFO *tmp);
-char *search(INFO **tmp, INFO **prev, char srch[MAX_IN_LEN]);
-
+char *search(INFO **tmp, INFO **prev, char *srch);
+void edit(INFO *start, INFO *tmp);
+void acc_user(char user[MAX_IN_LEN], char pass[MAX_IN_LEN_P]);
+char *user_info(INFO **tmp, INFO **prev, char *srch);
+void edit_user(INFO *start, INFO *tmp, char *user);
 
 #endif
